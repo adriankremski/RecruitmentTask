@@ -12,19 +12,23 @@ import com.github.snuffix.recruitmenttask.extensions.inflateView
 import com.github.snuffix.recruitmenttask.extensions.titleTransition
 import com.github.snuffix.recruitmenttask.model.DocumentViewItem
 import com.github.snuffix.recruitmenttask.model.ViewItem
-import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
+import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import kotlinx.android.synthetic.main.item_document_row.view.*
 import java.text.DateFormat
 
 class DocumentsAdapterDelegate(val onDocumentClick: (DocumentViewItem, FragmentNavigator.Extras) -> Unit) :
-    AbsListItemAdapterDelegate<DocumentViewItem, ViewItem, DocumentsAdapterDelegate.DocumentItemHolder>() {
+    AdapterDelegate<List<ViewItem>>() {
 
-    override fun onBindViewHolder(item: DocumentViewItem, holder: DocumentItemHolder, payloads: MutableList<Any>) {
-        holder.bind(item)
+    override fun onBindViewHolder(items: List<ViewItem>, position: Int, holder: RecyclerView.ViewHolder, payloads: MutableList<Any>) {
+        val item = items[position]
+        holder as DocumentItemHolder
+        holder.bind(item as DocumentViewItem)
     }
 
-    override fun isForViewType(item: ViewItem, items: MutableList<ViewItem>, position: Int) =
-        item is DocumentViewItem && item.isPdf()
+    override fun isForViewType(items: List<ViewItem>, position: Int): Boolean {
+        val item = items[position]
+        return item is DocumentViewItem && item.isPdf()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup): DocumentItemHolder {
         val itemView = parent.context.inflateView(R.layout.item_document_row, parent)

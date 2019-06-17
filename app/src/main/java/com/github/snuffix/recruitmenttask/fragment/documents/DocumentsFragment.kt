@@ -1,13 +1,17 @@
 package com.github.snuffix.recruitmenttask.fragment.documents
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import com.github.snuffix.recruitmenttask.BaseFragment
 import com.github.snuffix.recruitmenttask.R
 import com.github.snuffix.recruitmenttask.adapter.DocumentsAdapter
 import com.github.snuffix.recruitmenttask.mapper.DocumentsMapper
+import com.github.snuffix.recruitmenttask.model.DocumentViewItem
+import com.github.snuffix.recruitmenttask.model.ViewItem
 import com.github.snuffix.recruitmenttask.presentation.DocumentsViewModel
 import com.github.snuffix.recruitmenttask.presentation.model.DocumentSortOrder
 import kotlinx.android.synthetic.main.fragment_documents.*
@@ -23,6 +27,17 @@ class DocumentsFragment : BaseFragment() {
     private val documentsAdapter: DocumentsAdapter
         get() = documentsRecycler.adapter as DocumentsAdapter
 
+    private val diffUtil = object : DiffUtil.ItemCallback<ViewItem>() {
+        override fun areItemsTheSame(oldItem: ViewItem, newItem: ViewItem): Boolean {
+            return oldItem is DocumentViewItem && newItem is DocumentViewItem && oldItem.id == newItem.id
+        }
+
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: ViewItem, newItem: ViewItem): Boolean {
+            return oldItem == newItem
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_documents, container, false)
 
@@ -36,7 +51,7 @@ class DocumentsFragment : BaseFragment() {
 
         attachToolbar(getString(R.string.screen_title_documents), toolbar)
 
-        documentsRecycler.adapter = DocumentsAdapter { document, extras ->
+        documentsRecycler.adapter = DocumentsAdapter(diffUtil = diffUtil) { document, extras ->
             val bundle = DocumentPreviewFragment.documentPreviewBundle(documentId = document.id, documentName = document.name)
             findNavController().navigate(R.id.action_documentsFragment_to_documentPreviewFragment, bundle, null, extras)
         }
