@@ -74,7 +74,8 @@ ext {
             pdfPreview          : pdfPreview,
             kotlin              : kotlin,
             coroutinesCore      : coroutinesCore,
-            coroutinesAndroid   : coroutinesAndroid
+            coroutinesAndroid   : coroutinesAndroid,
+            commonsIo           : "commons-io:commons-io:2.6"
     ]
 
     domainDependencies = [

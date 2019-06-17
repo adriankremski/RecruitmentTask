@@ -5,6 +5,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import com.github.snuffix.recruitmenttask.cache.di.cacheModule
 import com.github.snuffix.recruitmenttask.data.di.dataModule
+import com.github.snuffix.recruitmenttask.data.model.DocumentStorePathEntity
+import com.github.snuffix.recruitmenttask.data.repository.FileStorage
 import com.github.snuffix.recruitmenttask.domain.di.domainModule
 import com.github.snuffix.recruitmenttask.domain.usecase.CoroutinesDispatcherProvider
 import com.github.snuffix.recruitmenttask.mapper.DocumentsMapper
@@ -14,10 +16,14 @@ import com.github.snuffix.recruitmenttask.remote.network.service.NetworkCheck
 import com.github.snuffix.recruitmenttask.remote.network.service.NetworkConfiguration
 import kotlinx.coroutines.Dispatchers
 import net.danlew.android.joda.JodaTimeAndroid
+import org.apache.commons.io.FileUtils
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
+import java.io.File
+import java.io.IOException
+import java.io.InputStream
 
 @Suppress("unused")
 open class RecruitmentTaskApp : Application() {
@@ -68,6 +74,16 @@ open class RecruitmentTaskApp : Application() {
             object : NetworkConfiguration {
                 override val cacheDir = androidApplication().cacheDir
                 override val isDebug = BuildConfig.DEBUG
+            }
+        }
+        single {
+            object : FileStorage {
+                override suspend fun storeFile(file: InputStream): DocumentStorePathEntity {
+                    val cacheDir = androidApplication().cacheDir
+                    val storePath = "$cacheDir-document.pdf"
+                    FileUtils.copyInputStreamToFile(file, File(storePath))
+                    return DocumentStorePathEntity(storePath)
+                }
             }
         }
     }

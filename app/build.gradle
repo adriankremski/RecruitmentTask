@@ -47,6 +47,7 @@ dependencies {
     implementation mobileDependencies.koinCoreExt
     implementation mobileDependencies.koinAndroid
     implementation mobileDependencies.koinAndroidScope
+    implementation mobileDependencies.commonsIo
     implementation mobileDependencies.koinAndroidViewModel
     implementation mobileDependencies.kotlin
     implementation mobileDependencies.constraintLayout
