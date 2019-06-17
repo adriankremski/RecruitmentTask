@@ -51,8 +51,8 @@ class DocumentPreviewFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         attachToolbar(documentName, toolbar)
-        ViewCompat.setTransitionName(toolbar, requireContext().titleTransition(documentId))
-        ViewCompat.setTransitionName(iconView, requireContext().iconTransition(documentId))
+        ViewCompat.setTransitionName(toolbar, titleTransition(documentId))
+        ViewCompat.setTransitionName(iconView, iconTransition(documentId))
 
         errorView.onRetry = {
             documentPreviewViewModel.loadDocument(documentId)

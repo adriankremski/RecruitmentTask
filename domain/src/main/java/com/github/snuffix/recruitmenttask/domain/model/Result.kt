@@ -4,6 +4,7 @@ package com.github.snuffix.recruitmenttask.domain.model
 /**
  * Wrapper class for passing data between 'data', 'presentation' and 'domain' modules
  */
+@Suppress("unused")
 sealed class Result<out T : Any> {
 
     class Ok<out T : Any>(val value: T) : Result<T>()

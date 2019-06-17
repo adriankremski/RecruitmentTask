@@ -1,6 +1,5 @@
 package com.github.snuffix.recruitmenttask.extensions
 
-import android.content.Context
 import androidx.fragment.app.Fragment
 
 

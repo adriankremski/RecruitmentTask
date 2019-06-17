@@ -11,5 +11,5 @@ import androidx.core.content.ContextCompat
 fun Context.inflateView(@LayoutRes layoutRes: Int, parent: ViewGroup?, attachToRoot: Boolean = false): View = LayoutInflater.from(this).inflate(layoutRes, parent, attachToRoot)
 fun Context.drawableCompat(@DrawableRes drawableRes: Int) = ContextCompat.getDrawable(this, drawableRes)!!
 
-fun Context.titleTransition(id: String) = "title$id"
-fun Context.iconTransition(id: String) = "icon$id"
+fun titleTransition(id: String) = "title$id"
+fun iconTransition(id: String) = "icon$id"

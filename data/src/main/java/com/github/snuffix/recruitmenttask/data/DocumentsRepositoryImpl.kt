@@ -7,7 +7,6 @@ import com.github.snuffix.recruitmenttask.data.repository.FileStorage
 import com.github.snuffix.recruitmenttask.domain.model.DocumentModel
 import com.github.snuffix.recruitmenttask.domain.model.DocumentStorePathModel
 import com.github.snuffix.recruitmenttask.domain.repository.DocumentsRepository
-import kotlinx.coroutines.coroutineScope
 
 class DocumentsRepositoryImpl constructor(
     private val mapper: DocumentsEntityMapper,

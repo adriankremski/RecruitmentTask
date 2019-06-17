@@ -1,7 +1,6 @@
 package com.github.snuffix.recruitmenttask.data.repository
 
 import com.github.snuffix.recruitmenttask.data.model.DocumentEntity
-import java.io.IOException
 import java.io.InputStream
 
 interface DocumentsRemoteSource {
@@ -9,4 +8,5 @@ interface DocumentsRemoteSource {
     suspend fun getDocumentFile(url: String): InputStream
 }
 
+@Suppress("unused")
 class RemoteException(val code: Int) : Exception()

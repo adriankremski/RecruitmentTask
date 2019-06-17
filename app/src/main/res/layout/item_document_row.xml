@@ -35,7 +35,7 @@
                 android:layout_marginStart="@dimen/spacing_large"
                 android:ellipsize="end"
                 android:lines="1"
-                tools:text="This is really long filename xxxx"
+                tools:text="This is really long filename to check something important :)"
                 android:layout_gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>

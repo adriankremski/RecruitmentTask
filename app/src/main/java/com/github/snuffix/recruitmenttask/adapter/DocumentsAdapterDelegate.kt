@@ -34,8 +34,8 @@ class DocumentsAdapterDelegate(val onDocumentClick: (DocumentViewItem, FragmentN
     inner class DocumentItemHolder(private val childView: View) : RecyclerView.ViewHolder(childView) {
         fun bind(document: DocumentViewItem) {
             childView.setOnClickListener {
-                ViewCompat.setTransitionName(childView.cardView, childView.context.titleTransition(document.id))
-                ViewCompat.setTransitionName(childView.iconView, childView.context.iconTransition(document.id))
+                ViewCompat.setTransitionName(childView.cardView, titleTransition(document.id))
+                ViewCompat.setTransitionName(childView.iconView, iconTransition(document.id))
 
                 val extras = FragmentNavigatorExtras(
                     childView.cardView to ViewCompat.getTransitionName(childView.cardView)!!,
