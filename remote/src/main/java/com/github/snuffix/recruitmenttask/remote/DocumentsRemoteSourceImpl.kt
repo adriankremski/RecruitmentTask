@@ -60,7 +60,7 @@ class DocumentsRemoteSourceImpl constructor(
     override suspend fun getDocuments(): List<DocumentEntity> = documents.map { mapper.mapFromModel(it) }
 
     override suspend fun getDocumentFile(url: String): InputStream {
-        return documentsService.getFile(url).await().getBodyOrThrow().byteStream()
+        return documentsService.getFile(url).getBodyOrThrow().byteStream()
     }
 
     private fun <T : Any> Response<T>.getBodyOrThrow() = if (isSuccessful) {

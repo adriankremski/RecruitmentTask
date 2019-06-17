@@ -13,6 +13,7 @@ class DocumentPreviewViewModel constructor(
     private val getDocumentFileUseCase: GetDocumentFileUseCase
 ) : ViewModel() {
 
+    var currentPage: Int = 0
     private val documentFilePathResource: MutableLiveData<Resource<String>> = MutableLiveData()
     private var currentJob: Job? = null
 

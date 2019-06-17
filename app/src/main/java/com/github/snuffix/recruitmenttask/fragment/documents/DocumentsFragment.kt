@@ -3,13 +3,10 @@ package com.github.snuffix.recruitmenttask.fragment.documents
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.core.view.doOnPreDraw
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.github.snuffix.recruitmenttask.BaseFragment
 import com.github.snuffix.recruitmenttask.R
 import com.github.snuffix.recruitmenttask.adapter.DocumentsAdapter
-import com.github.snuffix.recruitmenttask.extensions.afterMeasured
 import com.github.snuffix.recruitmenttask.mapper.DocumentsMapper
 import com.github.snuffix.recruitmenttask.presentation.DocumentsViewModel
 import com.github.snuffix.recruitmenttask.presentation.model.DocumentSortOrder

@@ -58,5 +58,7 @@ dependencies {
     implementation mobileDependencies.adapterDelegates
     implementation mobileDependencies.fragmentKtx
     implementation mobileDependencies.lifecycleRuntime
+    implementation mobileDependencies.pdfPreview
+    implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
 }
 

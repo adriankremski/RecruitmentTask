@@ -4,22 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
-import androidx.lifecycle.lifecycleScope
 import androidx.transition.TransitionInflater
 import com.github.snuffix.recruitmenttask.BaseFragment
 import com.github.snuffix.recruitmenttask.R
 import com.github.snuffix.recruitmenttask.extensions.extraNotNull
 import com.github.snuffix.recruitmenttask.extensions.iconTransition
+import com.github.snuffix.recruitmenttask.extensions.onPageChange
 import com.github.snuffix.recruitmenttask.extensions.titleTransition
 import com.github.snuffix.recruitmenttask.presentation.DocumentPreviewViewModel
 import com.github.snuffix.recruitmenttask.presentation.model.ErrorType
 import com.github.snuffix.recruitmenttask.view.TransitionEndListener
+import es.voghdev.pdfviewpager.library.adapter.PDFPagerAdapter
 import kotlinx.android.synthetic.main.fragment_document_preview.*
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 
 const val DOCUMENT_ID_KEY = "DOCUMENT_ID_KEY"
@@ -73,9 +71,7 @@ class DocumentPreviewFragment : BaseFragment() {
     }
 
     private fun showError(message: String?, errorType: ErrorType) {
-        lifecycleScope.launch {
-            delay(requireContext().resources.getInteger(R.integer.mediumAnimationTime).toLong())
-
+        executeWithDelay {
             progressView.visibility = View.GONE
             errorView.visibility = View.VISIBLE
 
@@ -88,7 +84,45 @@ class DocumentPreviewFragment : BaseFragment() {
     }
 
     private fun showFetchedDocument(documentStorePath: String) {
-        progressView.visibility = View.GONE
-        Toast.makeText(requireContext(), "Document fetched", Toast.LENGTH_SHORT).show()
+        executeWithDelay {
+            progressView.visibility = View.GONE
+            controls.visibility = View.VISIBLE
+
+            val adapter = PDFPagerAdapter(requireContext(), documentStorePath)
+            pdfViewPager.adapter = adapter
+
+            pageNumberLabel.text = getString(R.string.page_with_number, (documentPreviewViewModel.currentPage + 1).toString())
+
+            pdfViewPager.setCurrentItem(documentPreviewViewModel.currentPage, false)
+            invalidateNavigationArrows(currentPage = documentPreviewViewModel.currentPage, pageCount = adapter.count)
+
+            pdfViewPager.onPageChange { page ->
+                invalidateNavigationArrows(currentPage = page, pageCount = adapter.count)
+                documentPreviewViewModel.currentPage = page
+                pageNumberLabel.text = getString(R.string.page_with_number, (page + 1).toString())
+            }
+
+            previousPage.setOnClickListener {
+                val currentItem = pdfViewPager.currentItem
+
+                if (currentItem > 0) {
+                    pdfViewPager.currentItem = pdfViewPager.currentItem - 1
+                }
+            }
+
+            nextPage.setOnClickListener {
+                val currentItem = pdfViewPager.currentItem
+
+                if (currentItem < adapter.count) {
+                    pdfViewPager.currentItem = pdfViewPager.currentItem + 1
+                }
+            }
+        }
     }
+
+    private fun invalidateNavigationArrows(currentPage: Int, pageCount: Int) {
+        previousPage.visibility = if (currentPage == 0) View.GONE else View.VISIBLE
+        nextPage.visibility = if (currentPage == pageCount - 1) View.GONE else View.VISIBLE
+    }
+
 }

@@ -1,17 +1,19 @@
 package com.github.snuffix.recruitmenttask.extensions
 
-import android.view.View
-import android.view.ViewTreeObserver
+import androidx.viewpager.widget.ViewPager
 
+inline fun ViewPager.onPageChange(crossinline block: (Int) -> Unit) {
+    this.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        override fun onPageScrollStateChanged(state: Int) {
+            //Ignored
+        }
 
-inline fun <T: View> T.afterMeasured(crossinline f: T.() -> Unit) {
-    viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-        override fun onGlobalLayout() {
-            if (measuredWidth > 0 && measuredHeight > 0) {
-                viewTreeObserver.removeOnGlobalLayoutListener(this)
-                f()
-            }
+        override fun onPageSelected(position: Int) {
+            block.invoke(position)
+        }
+
+        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            //Ignored
         }
     })
 }
-
