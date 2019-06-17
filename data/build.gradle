@@ -1,0 +1,13 @@
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation project(':domain')
+
+    implementation dataDependencies.kotlin
+    implementation dataDependencies.coroutinesCore
+    implementation dataDependencies.koinCore
+    implementation dataDependencies.koinCoreExt
+}
+
+sourceCompatibility = "8"
+targetCompatibility = "8"
