@@ -44,6 +44,8 @@ ext {
     jUnitVersion = '4.12'
     assertJVersion = '3.8.0'
     mockitoKotlinVersion = '2.1.0'
+    androidRunnerVersion = '1.1.1'
+    androidRulesVersion = '1.1.1'
 
     //LIBRARIES
     coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
@@ -83,6 +85,14 @@ ext {
             coroutinesAndroid   : coroutinesAndroid,
             lifecycleRuntime    : lifecycleRuntime,
             commonsIo           : "commons-io:commons-io:2.6"
+    ]
+
+    mobileTestDependencies = [
+            androidRunner: "androidx.test:runner:$androidRunnerVersion",
+            androidRules : "androidx.test:rules:$androidRulesVersion",
+            espresso     : "com.android.support.test.espresso:espresso-core:3.1.0",
+            testExtJunit : "androidx.test.ext:junit:1.0.0",
+            junit        : junit
     ]
 
     domainDependencies = [

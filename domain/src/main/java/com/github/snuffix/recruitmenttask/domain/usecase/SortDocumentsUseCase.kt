@@ -13,8 +13,7 @@ open class SortDocumentsUseCase constructor(
 ) : BaseUseCase<List<DocumentModel>, SortDocumentsUseCase.Params>() {
 
     override suspend fun execute(params: Params) = withContext(coroutinesDispatcherProvider.io) {
-        val documents = mutableListOf<DocumentModel>()
-        documents.addAll(params.documents)
+        val documents = params.documents
 
         when (params.sortOrder) {
             SortOrder.BY_NAME_ASC -> documents.sortedBy { it.name }

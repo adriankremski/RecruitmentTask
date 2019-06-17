@@ -21,12 +21,15 @@ import org.apache.commons.io.FileUtils
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import org.koin.core.module.Module
 import org.koin.dsl.module
 import java.io.File
 import java.io.InputStream
 
 @Suppress("unused")
 open class RecruitmentTaskApp : Application() {
+
+    protected open val testModules: List<Module> = listOf()
 
     override fun onCreate() {
         super.onCreate()
@@ -48,7 +51,7 @@ open class RecruitmentTaskApp : Application() {
                 uiModule
             )
 
-            modules(productionModules)
+            modules(productionModules + testModules)
         }
     }
 
