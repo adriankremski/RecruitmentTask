@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/nav_main.xml" app:startDestination="@id/documentsFragment">
+
+    <fragment android:id="@+id/documentsFragment"
+              android:name="com.github.snuffix.recruitmenttask.fragment.documents.DocumentsFragment"
+              android:label="DocumentsFragment">
+        <action
+                android:id="@+id/action_documentsFragment_to_documentPreviewFragment"
+                app:destination="@id/documentPreviewFragment"/>
+    </fragment>
+
+    <fragment android:id="@+id/documentPreviewFragment"
+              android:name="com.github.snuffix.recruitmenttask.fragment.documents.DocumentPreviewFragment"
+              android:label="DocumentPreviewFragment"/>
+</navigation>
