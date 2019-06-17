@@ -105,6 +105,12 @@ ext {
             coroutinesCore: coroutinesCore
     ]
 
+    dataTestDependencies = [
+            junit  : junit,
+            mockito: mockito,
+            assertj: assertj
+    ]
+
     remoteDependencies = [
             jodaTime         : jodaTime,
             kotlin           : kotlin,
