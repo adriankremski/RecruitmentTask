@@ -21,8 +21,7 @@ class DocumentsLocalSourceImpl constructor(
     override suspend fun saveDocuments(documents: List<DocumentEntity>) =
         dao.insertDocuments(documents.map { cachedDocumentsMapper.mapFromEntity(it) })
 
-    override suspend fun getDocument(documentId: String): DocumentEntity {
-        TODO("not implemented")
-    }
+    override suspend fun getDocument(documentId: String): DocumentEntity =
+        cachedDocumentsMapper.mapFromModel(dao.queryDocument(documentId))
 }
 

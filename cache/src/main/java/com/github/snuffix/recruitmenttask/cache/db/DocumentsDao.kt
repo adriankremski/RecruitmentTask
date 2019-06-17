@@ -14,6 +14,9 @@ interface DocumentsDao {
     @Query(DocumentsDatabaseConstants.QUERY_DOCUMENTS)
     suspend fun queryDocuments(): List<DocumentCachedModel>
 
+    @Query(DocumentsDatabaseConstants.QUERY_DOCUMENT)
+    suspend fun queryDocument(id: String): DocumentCachedModel
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDocuments(documents: List<DocumentCachedModel>)
 }
