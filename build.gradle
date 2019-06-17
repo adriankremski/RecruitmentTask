@@ -38,6 +38,14 @@ ext {
     navVersion = "2.1.0-alpha05"
     appCompatVersion = "1.0.2"
     lifecycleVersion = "2.2.0-alpha01"
+    retrofitVersion = '2.6.0'
+    gsonVersion = '2.8.5'
+    okHttpVersion = '3.14.2'
+    jUnitVersion = '4.12'
+    assertJVersion = '3.8.0'
+    mockitoKotlinVersion = '2.1.0'
+    androidRunnerVersion = '1.1.1'
+    androidRulesVersion = '1.1.1'
 
     //LIBRARIES
     coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
@@ -51,6 +59,10 @@ ext {
     lifecycleCompiler = "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion"
     jodaTime = 'net.danlew:android.joda:2.10.1.2'
     pdfPreview = 'es.voghdev.pdfviewpager:library:1.0.6'
+    gson = "com.google.code.gson:gson:$gsonVersion"
+    junit = "junit:junit:$jUnitVersion"
+    mockito = "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
+    assertj = "org.assertj:assertj-core:$assertJVersion"
 
     //DEPENDENCIES
     mobileDependencies = [
@@ -70,7 +82,17 @@ ext {
             pdfPreview          : pdfPreview,
             kotlin              : kotlin,
             coroutinesCore      : coroutinesCore,
-            coroutinesAndroid   : coroutinesAndroid
+            coroutinesAndroid   : coroutinesAndroid,
+            lifecycleRuntime    : lifecycleRuntime,
+            commonsIo           : "commons-io:commons-io:2.6"
+    ]
+
+    mobileTestDependencies = [
+            androidRunner: "androidx.test:runner:$androidRunnerVersion",
+            androidRules : "androidx.test:rules:$androidRulesVersion",
+            espresso     : "com.android.support.test.espresso:espresso-core:3.1.0",
+            testExtJunit : "androidx.test.ext:junit:1.0.0",
+            junit        : junit
     ]
 
     domainDependencies = [
@@ -80,6 +102,12 @@ ext {
             kotlin        : kotlin
     ]
 
+    domainTestDependencies = [
+            junit  : junit,
+            mockito: mockito,
+            assertj: assertj
+    ]
+
     dataDependencies = [
             kotlin        : kotlin,
             koinCore      : koinCore,
@@ -87,12 +115,23 @@ ext {
             coroutinesCore: coroutinesCore
     ]
 
+    dataTestDependencies = [
+            junit  : junit,
+            mockito: mockito,
+            assertj: assertj
+    ]
+
     remoteDependencies = [
-            jodaTime      : jodaTime,
-            kotlin        : kotlin,
-            koinCore      : koinCore,
-            koinCoreExt   : koinCoreExt,
-            coroutinesCore: coroutinesCore,
+            jodaTime         : jodaTime,
+            kotlin           : kotlin,
+            koinCore         : koinCore,
+            koinCoreExt      : koinCoreExt,
+            coroutinesCore   : coroutinesCore,
+            okHttp           : "com.squareup.okhttp3:okhttp:$okHttpVersion",
+            okHttpLogger     : "com.squareup.okhttp3:logging-interceptor:$okHttpVersion",
+            retrofitConverter: "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+            retrofit         : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            gson             : gson,
     ]
 
     cacheDependencies = [

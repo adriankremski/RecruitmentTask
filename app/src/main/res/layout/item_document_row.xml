@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/AppCardView"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/iconView"
+                android:src="@drawable/ic_pdf_24dp"
+                android:contentDescription="@null"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:scaleType="fitXY"
+                android:layout_width="48dp"
+                android:layout_height="48dp"/>
+
+        <TextView
+                android:id="@+id/nameLabel"
+                style="@style/ListTitle"
+                app:layout_constraintBottom_toTopOf="@id/descriptionLabel"
+                app:layout_constraintStart_toEndOf="@id/iconView"
+                app:layout_constraintEnd_toStartOf="@id/dateLabel"
+                android:layout_marginEnd="@dimen/spacing_normal"
+                android:layout_marginStart="@dimen/spacing_large"
+                android:ellipsize="end"
+                android:lines="1"
+                tools:text="This is really long filename to check something important :)"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                style="@style/ListSubtitle2"
+                android:id="@+id/dateLabel"
+                app:layout_constraintTop_toTopOf="@id/nameLabel"
+                app:layout_constraintBottom_toBottomOf="@id/nameLabel"
+                android:layout_marginStart="@dimen/spacing_large"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="25 Mar 2000"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/descriptionLabel"
+                style="@style/ListSubtitle1"
+                android:layout_marginStart="@dimen/spacing_large"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:ellipsize="end"
+                android:lines="1"
+                app:layout_constraintStart_toEndOf="@id/iconView"
+                tools:text="Some custom description which is really really really long"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

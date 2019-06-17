@@ -1,0 +1,18 @@
+apply plugin: 'kotlin'
+
+sourceCompatibility = "8"
+targetCompatibility = "8"
+
+dependencies {
+    implementation project(':data')
+
+    implementation remoteDependencies.jodaTime
+    implementation remoteDependencies.coroutinesCore
+    implementation remoteDependencies.koinCore
+    implementation remoteDependencies.koinCoreExt
+    implementation remoteDependencies.gson
+    implementation remoteDependencies.okHttp
+    implementation remoteDependencies.okHttpLogger
+    implementation remoteDependencies.retrofit
+    implementation remoteDependencies.retrofitConverter
+}
