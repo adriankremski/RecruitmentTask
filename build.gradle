@@ -41,6 +41,9 @@ ext {
     retrofitVersion = '2.6.0'
     gsonVersion = '2.8.5'
     okHttpVersion = '3.14.2'
+    jUnitVersion = '4.12'
+    assertJVersion = '3.8.0'
+    mockitoKotlinVersion = '2.1.0'
 
     //LIBRARIES
     coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
@@ -55,6 +58,9 @@ ext {
     jodaTime = 'net.danlew:android.joda:2.10.1.2'
     pdfPreview = 'es.voghdev.pdfviewpager:library:1.0.6'
     gson = "com.google.code.gson:gson:$gsonVersion"
+    junit = "junit:junit:$jUnitVersion"
+    mockito = "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
+    assertj = "org.assertj:assertj-core:$assertJVersion"
 
     //DEPENDENCIES
     mobileDependencies = [
@@ -84,6 +90,12 @@ ext {
             koinCore      : koinCore,
             koinCoreExt   : koinCoreExt,
             kotlin        : kotlin
+    ]
+
+    domainTestDependencies = [
+            junit  : junit,
+            mockito: mockito,
+            assertj: assertj
     ]
 
     dataDependencies = [

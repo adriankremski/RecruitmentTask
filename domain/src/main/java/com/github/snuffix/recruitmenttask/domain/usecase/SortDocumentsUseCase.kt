@@ -13,11 +13,14 @@ open class SortDocumentsUseCase constructor(
 ) : BaseUseCase<List<DocumentModel>, SortDocumentsUseCase.Params>() {
 
     override suspend fun execute(params: Params) = withContext(coroutinesDispatcherProvider.io) {
+        val documents = mutableListOf<DocumentModel>()
+        documents.addAll(params.documents)
+
         when (params.sortOrder) {
-            SortOrder.BY_NAME_ASC -> params.documents.sortedBy { it.name }
-            SortOrder.BY_NAME_DESC -> params.documents.sortedByDescending { it.name }
-            SortOrder.BY_DATE_ASC -> params.documents.sortedBy { it.creationDate }
-            SortOrder.BY_DATE_DESC -> params.documents.sortedByDescending { it.creationDate }
+            SortOrder.BY_NAME_ASC -> documents.sortedBy { it.name }
+            SortOrder.BY_NAME_DESC -> documents.sortedByDescending { it.name }
+            SortOrder.BY_DATE_ASC -> documents.sortedBy { it.creationDate }
+            SortOrder.BY_DATE_DESC -> documents.sortedByDescending { it.creationDate }
         }
     }
 
