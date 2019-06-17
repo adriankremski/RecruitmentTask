@@ -19,6 +19,7 @@ object DocumentsServiceFactory {
 
     private fun makeService(okHttpClient: OkHttpClient): DocumentsService {
         val retrofit = Retrofit.Builder()
+            .baseUrl("http://localhost/") // In retrofit 2 you need to put any url, even if you are not using it
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
