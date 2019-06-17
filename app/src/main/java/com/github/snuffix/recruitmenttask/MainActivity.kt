@@ -16,7 +16,6 @@ class MainActivity : BaseActivity(), ToolbarContainer {
     override fun attachToolbar(title: String?, toolbar: Toolbar) {
         setSupportActionBar(toolbar)
         NavigationUI.setupWithNavController(toolbar, navHostFragment.findNavController())
-        supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.title = title
     }
 }
