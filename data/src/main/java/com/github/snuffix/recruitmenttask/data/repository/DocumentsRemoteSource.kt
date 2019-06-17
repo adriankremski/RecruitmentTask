@@ -9,5 +9,4 @@ interface DocumentsRemoteSource {
     suspend fun getDocumentFile(url: String): InputStream
 }
 
-class NoConnectivityException : IOException()
 class RemoteException(val code: Int) : Exception()

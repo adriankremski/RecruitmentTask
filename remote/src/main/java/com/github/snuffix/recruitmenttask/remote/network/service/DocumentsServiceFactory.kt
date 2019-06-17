@@ -1,6 +1,5 @@
 package com.github.snuffix.recruitmenttask.remote.network.service
 
-import com.github.snuffix.recruitmenttask.data.repository.NoConnectivityException
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -43,7 +42,7 @@ object DocumentsServiceFactory {
         val builder = chain.request().newBuilder()
 
         if (!networkCheck.isOnline()) {
-            throw NoConnectivityException()
+            networkCheck.throwConnectivityException()
         }
 
         chain.proceed(builder.build())

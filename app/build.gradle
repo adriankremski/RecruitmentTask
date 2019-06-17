@@ -57,5 +57,6 @@ dependencies {
     implementation mobileDependencies.coroutinesAndroid
     implementation mobileDependencies.adapterDelegates
     implementation mobileDependencies.fragmentKtx
+    implementation mobileDependencies.lifecycleRuntime
 }
 

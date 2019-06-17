@@ -75,6 +75,7 @@ ext {
             kotlin              : kotlin,
             coroutinesCore      : coroutinesCore,
             coroutinesAndroid   : coroutinesAndroid,
+            lifecycleRuntime    : lifecycleRuntime,
             commonsIo           : "commons-io:commons-io:2.6"
     ]
 

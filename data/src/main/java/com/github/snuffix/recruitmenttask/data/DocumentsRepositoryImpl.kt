@@ -4,6 +4,7 @@ import com.github.snuffix.recruitmenttask.data.mapper.DocumentsEntityMapper
 import com.github.snuffix.recruitmenttask.data.repository.DocumentsLocalSource
 import com.github.snuffix.recruitmenttask.data.repository.DocumentsRemoteSource
 import com.github.snuffix.recruitmenttask.data.repository.FileStorage
+import com.github.snuffix.recruitmenttask.domain.model.DocumentModel
 import com.github.snuffix.recruitmenttask.domain.model.DocumentStorePathModel
 import com.github.snuffix.recruitmenttask.domain.repository.DocumentsRepository
 import kotlinx.coroutines.coroutineScope
@@ -15,18 +16,18 @@ class DocumentsRepositoryImpl constructor(
     private val localSource: DocumentsLocalSource
 ) : DocumentsRepository {
 
-    override suspend fun getDocumentFile(documentId: String) = coroutineScope {
+    override suspend fun getDocumentFile(documentId: String): DocumentStorePathModel {
         val document = localSource.getDocument(documentId)
         val documentFileStream = remoteSource.getDocumentFile(document.url)
-        DocumentStorePathModel(storePath = fileStorage.storeFile(documentFileStream).storePath)
+        return DocumentStorePathModel(storePath = fileStorage.storeFile(documentFileStream).storePath)
     }
 
-    override suspend fun getDocuments(forceRefresh: Boolean) = coroutineScope {
+    override suspend fun getDocuments(forceRefresh: Boolean) : List<DocumentModel> {
         if (forceRefresh || !localSource.hasCachedDocuments()) {
             val documents = remoteSource.getDocuments()
             localSource.saveDocuments(documents)
         }
 
-        localSource.getDocuments().map { mapper.mapFromEntity(it) }
+        return localSource.getDocuments().map { mapper.mapFromEntity(it) }
     }
 }

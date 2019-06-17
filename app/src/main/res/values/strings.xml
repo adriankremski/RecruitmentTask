@@ -3,4 +3,7 @@
     <string name="screen_title_documents">Documents</string>
     <string name="sort_by_name">Sort by name</string>
     <string name="sort_by_date">Sort by date</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="something_went_wrong">Oops, something went wrong</string>
+    <string name="retry">Retry</string>
 </resources>

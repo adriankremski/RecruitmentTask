@@ -36,13 +36,21 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <ProgressBar
+            android:id="@+id/progressView"
+            android:visibility="gone"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-<!--    <es.voghdev.pdfviewpager.library.PDFViewPager-->
-<!--            android:id="@+id/pdfViewPager"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"/>-->
+    <com.github.snuffix.recruitmenttask.view.ErrorView
+            android:id="@+id/errorView"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"/>
+    <!--    <es.voghdev.pdfviewpager.library.PDFViewPager-->
+    <!--            android:id="@+id/pdfViewPager"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"/>-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

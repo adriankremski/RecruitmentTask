@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.transition.TransitionInflater
 import com.github.snuffix.recruitmenttask.BaseFragment
 import com.github.snuffix.recruitmenttask.R
@@ -14,7 +15,11 @@ import com.github.snuffix.recruitmenttask.extensions.extraNotNull
 import com.github.snuffix.recruitmenttask.extensions.iconTransition
 import com.github.snuffix.recruitmenttask.extensions.titleTransition
 import com.github.snuffix.recruitmenttask.presentation.DocumentPreviewViewModel
+import com.github.snuffix.recruitmenttask.presentation.model.ErrorType
+import com.github.snuffix.recruitmenttask.view.TransitionEndListener
 import kotlinx.android.synthetic.main.fragment_document_preview.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 
 const val DOCUMENT_ID_KEY = "DOCUMENT_ID_KEY"
@@ -33,8 +38,13 @@ class DocumentPreviewFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-        documentPreviewViewModel.loadDocument(documentId)
+        TransitionInflater.from(context).inflateTransition(android.R.transition.move).apply {
+            sharedElementEnterTransition = this
+
+            this.addListener(TransitionEndListener {
+                documentPreviewViewModel.loadDocument(documentId)
+            })
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_document_preview, container, false)
@@ -46,16 +56,39 @@ class DocumentPreviewFragment : BaseFragment() {
         ViewCompat.setTransitionName(toolbar, requireContext().titleTransition(documentId))
         ViewCompat.setTransitionName(iconView, requireContext().iconTransition(documentId))
 
+        errorView.onRetry = {
+            documentPreviewViewModel.loadDocument(documentId)
+        }
+
         documentPreviewViewModel.documentFilePath().observe(
-            onLoading = {
-                Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
-            },
-            onError = { message, _ ->
-                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-            },
-            onSuccess = { documentStorePath ->
-                Toast.makeText(requireContext(), "Document fetched", Toast.LENGTH_SHORT).show()
-            }
+            onLoading = ::showLoading,
+            onError = ::showError,
+            onSuccess = ::showFetchedDocument
         )
+    }
+
+    private fun showLoading() {
+        errorView.visibility = View.GONE
+        progressView.visibility = View.VISIBLE
+    }
+
+    private fun showError(message: String?, errorType: ErrorType) {
+        lifecycleScope.launch {
+            delay(requireContext().resources.getInteger(R.integer.mediumAnimationTime).toLong())
+
+            progressView.visibility = View.GONE
+            errorView.visibility = View.VISIBLE
+
+            if (errorType == ErrorType.NETWORK) {
+                errorView.networkError()
+            } else {
+                errorView.error(message)
+            }
+        }
+    }
+
+    private fun showFetchedDocument(documentStorePath: String) {
+        progressView.visibility = View.GONE
+        Toast.makeText(requireContext(), "Document fetched", Toast.LENGTH_SHORT).show()
     }
 }
