@@ -1,6 +1,8 @@
 package com.github.snuffix.recruitmenttask
 
 import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
 import com.github.snuffix.recruitmenttask.cache.di.cacheModule
 import com.github.snuffix.recruitmenttask.data.di.dataModule
 import com.github.snuffix.recruitmenttask.domain.di.domainModule
@@ -8,8 +10,11 @@ import com.github.snuffix.recruitmenttask.domain.usecase.CoroutinesDispatcherPro
 import com.github.snuffix.recruitmenttask.mapper.DocumentsMapper
 import com.github.snuffix.recruitmenttask.presentation.di.presentationModule
 import com.github.snuffix.recruitmenttask.remote.di.remoteModule
+import com.github.snuffix.recruitmenttask.remote.network.service.NetworkCheck
+import com.github.snuffix.recruitmenttask.remote.network.service.NetworkConfiguration
 import kotlinx.coroutines.Dispatchers
 import net.danlew.android.joda.JodaTimeAndroid
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
@@ -48,6 +53,22 @@ open class RecruitmentTaskApp : Application() {
                 computation = Dispatchers.Default,
                 io = Dispatchers.IO
             )
+        }
+        single<NetworkCheck> {
+            object : NetworkCheck {
+                val connectivityManager = androidApplication().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+                override fun isOnline(): Boolean {
+                    val netInfo = connectivityManager.activeNetworkInfo
+                    return (netInfo != null && netInfo.isConnected)
+                }
+            }
+        }
+        single<NetworkConfiguration> {
+            object : NetworkConfiguration {
+                override val cacheDir = androidApplication().cacheDir
+                override val isDebug = BuildConfig.DEBUG
+            }
         }
     }
 
