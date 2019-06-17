@@ -39,12 +39,12 @@ open class RecruitmentTaskApp : Application() {
             // modules
 
             val productionModules = listOf(
+                applicationModule,
                 cacheModule,
                 remoteModule,
                 dataModule,
                 domainModule,
                 presentationModule,
-                applicationModule,
                 uiModule
             )
 
@@ -76,7 +76,7 @@ open class RecruitmentTaskApp : Application() {
                 override val isDebug = BuildConfig.DEBUG
             }
         }
-        single {
+        single<FileStorage> {
             object : FileStorage {
                 override suspend fun storeFile(file: InputStream): DocumentStorePathEntity {
                     val cacheDir = androidApplication().cacheDir
