@@ -14,5 +14,5 @@ open class GetDocumentFileUseCase constructor(
         getResult { documentsRepository.getDocumentFile(params.documentId) }
     }
 
-    data class Params(val documentId: String, val storePath: String)
+    data class Params(val documentId: String)
 }

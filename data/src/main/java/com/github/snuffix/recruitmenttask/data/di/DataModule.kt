@@ -7,5 +7,5 @@ import org.koin.dsl.module
 
 val dataModule = module {
     single { DocumentsEntityMapper() }
-    single<DocumentsRepository> { DocumentsRepositoryImpl(get(), get(), get()) }
+    single<DocumentsRepository> { DocumentsRepositoryImpl(get(), get(), get(), get()) }
 }
